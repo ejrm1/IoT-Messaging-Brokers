@@ -13,10 +13,6 @@ import (
 
 var letterRunes = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890")
 
-func init() {
-	rand.Seed(time.Now().UnixNano())
-}
-
 func RandStringRunes(n int) string {
 	b := make([]rune, n)
 	for i := range b {
@@ -25,9 +21,13 @@ func RandStringRunes(n int) string {
 	return string(b)
 }
 
+func init() {
+	rand.Seed(time.Now().UnixNano())
+}
+
 type Data struct {
-	Timestamp float64 `json:"timestamp"`
-	Value     string  `json:"value"`
+	Timestamp int64  `json:"timestamp"`
+	Value     string `json:"value"`
 }
 
 type Device struct {
@@ -36,7 +36,7 @@ type Device struct {
 
 func (d *Device) SendData(Device_type int, ch *amqp.Channel) {
 	data := RandStringRunes(Device_type)
-	payload := Data{Value: data, Timestamp: float64(time.Now().UnixNano())}
+	payload := Data{Value: data, Timestamp: time.Now().UnixNano()}
 
 	jsonPayload, err := json.Marshal(payload)
 	if err != nil {
@@ -57,13 +57,13 @@ func (d *Device) SendData(Device_type int, ch *amqp.Channel) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Printf("Device %d Sending: %s\n", d.ID, string(jsonPayload))
+	//fmt.Printf("Device %d Sending: %s\n", d.ID, string(jsonPayload))
 
 }
 
 func main() {
 	// Number of devices
-	deviceCount := 3
+	deviceCount := 50
 
 	conn, err := amqp.Dial("amqp://guest:guest@rabbitmq:5672/")
 	if err != nil {
@@ -94,7 +94,7 @@ func main() {
 			for {
 				device := Device{ID: id}
 				device.SendData(10, ch)
-				time.Sleep(time.Second)
+				time.Sleep(time.Second / 1000)
 			}
 
 		}(i)
