@@ -57,7 +57,9 @@ func main() {
 	var errorCount int64
 	var latencytotal int64
 
+
 	consumerCount := 1000
+
 
 	ticker := time.NewTicker(10 * time.Second)
 	go func() {
