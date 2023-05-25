@@ -23,7 +23,7 @@ func main() {
 
 	var messageCount int64
 	var latencytotal int64
-	consumerCount := 10000
+	consumerCount := 1000
 
 	ticker := time.NewTicker(10 * time.Second)
 	go func() {
@@ -37,7 +37,7 @@ func main() {
 			}
 
 			fmt.Printf("Current latency: %f nanoseconds\n", currentavgLatency)
-			fmt.Printf("Current throughput: %d messages per second\n", currentMessageCount)
+			fmt.Printf("Current throughput: %d messages per 10 second\n", currentMessageCount)
 			//fmt.Printf("Current error rate: %d errors per second\n", currentErrorCount)
 			atomic.StoreInt64(&latencytotal, 0)
 			atomic.StoreInt64(&messageCount, 0)

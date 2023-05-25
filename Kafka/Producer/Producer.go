@@ -57,7 +57,7 @@ func (d *Device) SendData(Device_type int, w *kafka.Writer) {
 
 func main() {
 	// Number of devices
-	deviceCount := 10000
+	deviceCount := 1000
 
 	w := kafka.NewWriter(kafka.WriterConfig{
 		Brokers: []string{"kafka:9092"},

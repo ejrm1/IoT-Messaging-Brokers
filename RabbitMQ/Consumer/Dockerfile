@@ -20,6 +20,12 @@ RUN go build -o main .
 # This container exposes port 9092 to the outside world
 EXPOSE 5672
 
+#RUN sed -i 's/\r$//' ./wait-for-it.sh  && \  
+#        chmod +x ./wait-for-it.sh
+
+#RUN sed -i 's/\r$//' ./start.sh  && \  
+#        chmod +x ./start.sh
+
 RUN chmod +x ./wait-for-it.sh
 RUN chmod +x ./start.sh
 
