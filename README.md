@@ -1,6 +1,7 @@
 # Tarea 2 Sistemas Distribuidos, IoT-Messaging-Brokers
 
 Eduardo Riquelme Molina
+
 Manuel Caceres Farias
 
 
