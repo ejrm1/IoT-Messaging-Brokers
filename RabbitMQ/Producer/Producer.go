@@ -11,12 +11,12 @@ import (
 	"github.com/streadway/amqp"
 )
 
-var letterRunes = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890")
+var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890")
 
-func RandStringRunes(n int) string {
+func RandString(n int) string {
 	b := make([]rune, n)
 	for i := range b {
-		b[i] = letterRunes[rand.Intn(len(letterRunes))]
+		b[i] = letters[rand.Intn(len(letters))]
 	}
 	return string(b)
 }
@@ -35,7 +35,7 @@ type Device struct {
 }
 
 func (d *Device) SendData(Device_type int, ch *amqp.Channel) {
-	data := RandStringRunes(Device_type)
+	data := RandString(Device_type)
 	payload := Data{Value: data, Timestamp: time.Now().UnixNano()}
 
 	jsonPayload, err := json.Marshal(payload)
@@ -63,7 +63,7 @@ func (d *Device) SendData(Device_type int, ch *amqp.Channel) {
 
 func main() {
 	// Number of devices
-	deviceCount := 50
+	deviceCount := 20000
 
 	conn, err := amqp.Dial("amqp://guest:guest@rabbitmq:5672/")
 	if err != nil {
@@ -94,7 +94,7 @@ func main() {
 			for {
 				device := Device{ID: id}
 				device.SendData(10, ch)
-				time.Sleep(time.Second / 1000)
+				time.Sleep(time.Second / 10)
 			}
 
 		}(i)
