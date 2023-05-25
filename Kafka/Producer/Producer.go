@@ -51,13 +51,13 @@ func (d *Device) SendData(Device_type int, w *kafka.Writer) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Printf("Device %d Sending: %s\n", d.ID, string(jsonPayload))
+	//fmt.Printf("Device %d Sending: %s\n", d.ID, string(jsonPayload))
 
 }
 
 func main() {
 	// Number of devices
-	deviceCount := 3
+	deviceCount := 10000
 
 	w := kafka.NewWriter(kafka.WriterConfig{
 		Brokers: []string{"kafka:9092"},
@@ -69,7 +69,7 @@ func main() {
 			for {
 				device := Device{ID: id}
 				device.SendData(10, w)
-				time.Sleep(time.Second)
+				time.Sleep(time.Second / 10)
 			}
 
 		}(i)
