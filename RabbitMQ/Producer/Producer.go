@@ -63,7 +63,9 @@ func (d *Device) SendData(Device_type int, ch *amqp.Channel) {
 
 func main() {
 	// Number of devices
-	deviceCount := 20000
+
+	deviceCount := 1000
+
 
 	conn, err := amqp.Dial("amqp://guest:guest@rabbitmq:5672/")
 	if err != nil {
