@@ -8,7 +8,9 @@ Manuel Caceres Farias
 [Video](https://youtu.be/JcGpvW6ct-U)
 # Utilizacion
 Para correr los docker compose, simplemente dirijase a la carpeta del compose que desea ejecutar(Kafka, RabbitMQ, o con Types) y ejecute el siguiente comando:
+
 ``` docker-compose build up --build```
+
 El programa se ejecutara automaticamente
 
 Es importante notar, que en caso de querer ejecutarse en Windows, hay que hacer una leve modificacion a los dockerfiles de RabbitMQ:
